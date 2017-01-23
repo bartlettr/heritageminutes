@@ -1,0 +1,27 @@
+version: '2'
+services:
+  hm-web:
+    container_name: hm-web
+    image: hm-web:0.1.0
+    ports:
+      - 80:8080
+    links:
+      - hm-cassandra
+    networks:
+      - hm-network
+  hm-cassandra:
+    container_name: hm-cassandra
+    image: cassandra
+    volumes:
+      - ./cassandra/datadir:/var/lib/cassandra
+    ports:
+        - 7000:7000 # Internode communication (not used if TLS enabled)
+        - 7001:7001 # TLS Internode communication (used if TLS enabled)
+        - 7199:7199 # JMX (was 8080 pre Cassandra 0.8.xx)
+        - 9042:9042 # CQL native transport port
+        - 9160:9160 # Thrift client API
+    networks:
+      - hm-network
+networks:
+  hm-network:
+    driver: bridge
