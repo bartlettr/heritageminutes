@@ -1,16 +1,16 @@
 version: '2'
 services:
-  hm-web:
-    container_name: hm-web
-    image: hm-web:0.1.0
+  heritageminutes:
+    container_name: heritageminutes
+    image: heritageminutes:0.1.0
     ports:
       - 80:8080
     links:
-      - hm-cassandra
+      - heritageminutes-cassandra
     networks:
-      - hm-network
-  hm-cassandra:
-    container_name: hm-cassandra
+      - heritageminutes-network
+  heritageminutes-cassandra:
+    container_name: heritageminutes-cassandra
     image: cassandra
     volumes:
       - ./cassandra/datadir:/var/lib/cassandra
@@ -21,7 +21,7 @@ services:
         - 9042:9042 # CQL native transport port
         - 9160:9160 # Thrift client API
     networks:
-      - hm-network
+      - heritageminutes-network
 networks:
-  hm-network:
+  heritageminutes-network:
     driver: bridge
