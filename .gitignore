@@ -3,3 +3,4 @@ build/
 .idea/
 docker/cassandra/
 .DS_Store
+**/bower_components

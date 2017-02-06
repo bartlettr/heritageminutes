@@ -3,12 +3,14 @@ package hmgt.config;
 import com.datastax.driver.core.Session;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.data.cassandra.config.CassandraClusterFactoryBean;
 import org.springframework.data.cassandra.config.SchemaAction;
 import org.springframework.data.cassandra.config.java.AbstractCassandraConfiguration;
 import org.springframework.data.cassandra.core.CassandraTemplate;
 import org.springframework.data.cassandra.repository.config.EnableCassandraRepositories;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -21,13 +23,16 @@ public class CassandraConfig extends AbstractCassandraConfiguration {
         return "heritageminutes";
     }
 
-    @Bean
-    public CassandraClusterFactoryBean cluster() {
-        final CassandraClusterFactoryBean cluster = new CassandraClusterFactoryBean();
-        cluster.setContactPoints("heritageminutes-cassandra");
-        cluster.setPort(9042);
-        return cluster;
+    @Override
+    protected String getContactPoints() {
+        return "localhost";
     }
+
+    @Override
+    protected int getPort() {
+        return 9042;
+    }
+
 
     @Bean
     public CassandraTemplate cassandraTemplate(final Session session) {

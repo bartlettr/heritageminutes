@@ -1,0 +1,8 @@
+{
+  "version": "1.0.0",
+  "name": "heritageminutes",
+  "appPath": "src/main/webapp/",
+  "dependencies": {
+    "angular-ui-router": "^0.4.2"
+  }
+}
