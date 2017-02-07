@@ -9,11 +9,10 @@ import java.util.UUID;
 
 @Data
 @NoArgsConstructor
-@Table(value = "locations")
-public class Location {
+@Table(value = "minutes")
+public class Minute {
     @PrimaryKey
     private UUID id;
-    private UUID locationId;
-    private float lat;
-    private float lng;
+    private String title;
+    private String description;
 }
