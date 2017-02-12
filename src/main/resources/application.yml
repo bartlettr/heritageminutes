@@ -1,0 +1,18 @@
+spring:
+  profiles.active: dev
+---
+spring:
+  profiles: dev
+hmgt:
+  webapp:
+    documentRoot: src/main/webapp/
+  cassandra:
+    contactPoints: localhost
+---
+spring:
+  profiles: prod
+hmgt:
+  webapp:
+    documentRoot: /webapp/
+  cassandra:
+    contactPoints: hmgt-cassandra

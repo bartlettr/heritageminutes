@@ -1,15 +1,36 @@
 <!doctype html>
-<html>
+<html lang="en" >
 <head>
-    <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-    <script src="helloworld.js"></script>
-    <style>.active { color: red; font-weight: bold; }</style>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <link rel="stylesheet" href="bower_components/angular-material/angular-material.min.css">
+    <link rel="stylesheet" href="bower_components/leaflet/dist/leaflet.css">
+    <link rel="stylesheet" href="content/css/main.css">
 </head>
+<body ng-app="HmgtApp">
+    <ui-view name="navbar"></ui-view>
 
-<body ng-app="helloworld">
-<a ui-sref="hello" ui-sref-active="active">Hello</a>
-<a ui-sref="about" ui-sref-active="active">About</a>
-<ui-view></ui-view>
+    <md-content flex layout-padding>
+        <ui-view name="content"></ui-view>
+    </md-content>
+
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.min.js"></script>
+    <script src="bower_components/angular-aria/angular-aria.min.js"></script>
+    <script src="bower_components/angular-messages/angular-messages.min.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script src="bower_components/angular-material/angular-material.min.js"></script>
+
+    <script src="bower_components/leaflet/dist/leaflet.js"></script>
+    <script src="bower_components/angular-simple-logger/dist/angular-simple-logger.min.js"></script>
+    <script src="bower_components/ui-leaflet/dist/ui-leaflet.min.js"></script>
+
+    <script src="app/app.module.js"></script>
+    <script src="app/app.state.js"></script>
+    <script src="app/navigation/navbar.controller.js"></script>
+    <script src="app/components/map/map.state.js"></script>
+    <script src="app/components/map/map.controller.js"></script>
+    <script src="app/components/minute/minute.state.js"></script>
+    <script src="app/components/minute/minute.controller.js"></script>
 </body>
 </html>

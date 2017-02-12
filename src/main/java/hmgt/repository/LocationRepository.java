@@ -11,6 +11,9 @@ import java.util.UUID;
 @Repository
 public interface LocationRepository extends CassandraRepository<Location> {
 
-    @Query("SELECT * FROM minutes WHERE locationId=?0")
-    List<Location> findByLocationId(UUID locationId);
+    @Query("SELECT * FROM locations WHERE minuteId=?0 ALLOW FILTERING")
+    List<Location> findByMinuteId(UUID minuteId);
+
+    @Query("DELETE FROM locations WHERE minuteId=?0")
+    void deleteByMinuteId(UUID minuteId);
 }

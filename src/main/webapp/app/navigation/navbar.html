@@ -1,0 +1,22 @@
+<md-toolbar layout="row" class="md-toolbar-tools">
+    <h1 flex md-truncate>Take Me To FitzGibbon - A Heritage Minutes Grand Tour</h1>
+    <md-button hide-sm ui-sref="map">Map</md-button>
+    <md-button hide-sm ui-sref="blog">Blog</md-button>
+    <md-menu hide-sm md-position-mode="target-right target" md-offset="0 42">
+        <md-button ng-click="$mdMenu.open()">
+            Add...
+        </md-button>
+        <md-menu-content width="4">
+            <md-menu-item>
+                <md-button ui-sref="minute">
+                    Minute
+                </md-button>
+            </md-menu-item>
+            <md-menu-item>
+                <md-button ui-sref="location">
+                    Location
+                </md-button>
+            </md-menu-item>
+        </md-menu-content>
+    </md-menu>
+</md-toolbar>

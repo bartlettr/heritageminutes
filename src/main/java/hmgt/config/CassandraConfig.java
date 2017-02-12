@@ -1,6 +1,7 @@
 package hmgt.config;
 
 import com.datastax.driver.core.Session;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
@@ -18,6 +19,9 @@ import java.util.List;
 @EnableCassandraRepositories(basePackages = "hmgt.repository")
 public class CassandraConfig extends AbstractCassandraConfiguration {
 
+    @Value("${hmgt.cassandra.contactPoints}")
+    private String contactPoints;
+
     @Override
     protected String getKeyspaceName() {
         return "heritageminutes";
@@ -25,14 +29,13 @@ public class CassandraConfig extends AbstractCassandraConfiguration {
 
     @Override
     protected String getContactPoints() {
-        return "localhost";
+        return contactPoints;
     }
 
     @Override
     protected int getPort() {
         return 9042;
     }
-
 
     @Bean
     public CassandraTemplate cassandraTemplate(final Session session) {

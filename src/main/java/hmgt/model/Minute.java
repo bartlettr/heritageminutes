@@ -13,6 +13,8 @@ import java.util.UUID;
 public class Minute {
     @PrimaryKey
     private UUID id;
-    private String title;
+    private String name;
+    private String url;
     private String description;
+    private String when;
 }

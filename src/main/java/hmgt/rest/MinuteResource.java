@@ -60,6 +60,7 @@ public class MinuteResource {
         final Minute minute = minuteRepository.findOne(mapId);
         if(minute != null) {
             minuteRepository.delete(minute);
+            locationRepository.deleteByMinuteId(uuid);
             return ResponseEntity.ok().build();
         }
         return ResponseEntity.notFound().build();
@@ -68,7 +69,7 @@ public class MinuteResource {
     @GetMapping("/minutes/{id}/locations")
     public ResponseEntity<?> getLocations(@PathVariable final String id) {
         final UUID uuid = UUID.fromString(id);
-        final List<Location> locations = locationRepository.findByLocationId(uuid);
+        final List<Location> locations = locationRepository.findByMinuteId(uuid);
         if(locations != null) {
             return ResponseEntity.ok(locations);
         }
@@ -78,8 +79,21 @@ public class MinuteResource {
     @PostMapping("/minutes/{id}/locations")
     public ResponseEntity<?> createLocation(@PathVariable final String id, @RequestBody final Location location) {
         location.setId(UUIDs.timeBased());
-        final UUID locationId = UUID.fromString(id);
-        location.setLocationId(locationId);
+        final UUID uuid = UUID.fromString(id);
+        location.setMinuteId(uuid);
+        locationRepository.save(location);
         return ResponseEntity.ok(location.getId());
+    }
+
+    @PostMapping("/minutes/{minuteId}/locations/{id}")
+    public ResponseEntity<?> deleteLocation(@PathVariable final String id) {
+        final UUID uuid = UUID.fromString(id);
+        final MapId mapId = new BasicMapId().with("id", uuid);
+        final Location location = locationRepository.findOne(mapId);
+        if(location != null) {
+            locationRepository.delete(location);
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.notFound().build();
     }
 }

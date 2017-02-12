@@ -1,6 +1,5 @@
 package hmgt.repository;
 
-import hmgt.model.Location;
 import hmgt.model.Minute;
 import org.springframework.data.cassandra.repository.CassandraRepository;
 import org.springframework.stereotype.Repository;

@@ -1,5 +1,7 @@
 package hmgt.config;
 
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletContainer;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
 import org.springframework.boot.context.embedded.MimeMappings;
@@ -10,8 +12,12 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import java.io.File;
 
+@Slf4j
 @Configuration
 public class WebConfig implements ServletContextInitializer, EmbeddedServletContainerCustomizer {
+
+    @Value("${hmgt.webapp.documentRoot}")
+    private String documentRoot;
 
     @Override
     public void onStartup(final ServletContext servletContext) throws ServletException {
@@ -25,9 +31,11 @@ public class WebConfig implements ServletContextInitializer, EmbeddedServletCont
     }
 
     private void setLocationForStaticAssets(ConfigurableEmbeddedServletContainer container) {
-        final File root = new File("src/main/webapp/");
+        final File root = new File(documentRoot);
         if (root.exists() && root.isDirectory()) {
             container.setDocumentRoot(root);
+        } else {
+            log.error("Failed to find document root: {}", documentRoot);
         }
     }
 }

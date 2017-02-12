@@ -1,7 +1,7 @@
 apply plugin: "com.palantir.docker"
 
 docker {
-    name project.name + ':' + project.version
+    name 'hmgt:' + project.version
     dockerfile "docker/Dockerfile"
     dependsOn tasks.jar, tasks.bootRepackage
 }
