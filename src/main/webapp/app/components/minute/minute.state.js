@@ -3,14 +3,14 @@
 
     angular
         .module('HmgtApp')
-        .config(stateConfig);
+        .config(minuteConfig);
 
-    stateConfig.$inject = ['$stateProvider'];
+    minuteConfig.$inject = ['$stateProvider'];
 
-    function stateConfig($stateProvider) {
+    function minuteConfig($stateProvider) {
         $stateProvider.state('minute', {
             parent: 'app',
-            url: '/',
+            url: '/minute',
             data: {
                 authorities: []
             },

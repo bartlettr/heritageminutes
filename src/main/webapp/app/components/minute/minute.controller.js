@@ -5,9 +5,11 @@
         .module('HmgtApp')
         .controller('MinuteController', MinuteController);
 
-    MinuteController.$inject = [];
+    MinuteController.$inject = ['$scope'];
 
-    function MinuteController () {
-
+    function MinuteController ($scope) {
+        $scope.save = function() {
+            console.log($scope.minute);
+        };
     }
 })();

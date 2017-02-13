@@ -3,7 +3,8 @@
 
     angular
         .module('HmgtApp')
-        .config(stateConfig);
+        .config(stateConfig)
+        .config(materialConfig);
 
     stateConfig.$inject = ['$stateProvider'];
 
@@ -18,5 +19,12 @@
                 }
             }
         });
+    }
+
+    materialConfig.$inject = ['$mdThemingProvider'];
+
+    function materialConfig($mdThemingProvider) {
+        $mdThemingProvider.theme('default')
+          .primaryPalette('grey');
     }
 })();

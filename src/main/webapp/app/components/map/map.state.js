@@ -3,11 +3,11 @@
 
     angular
         .module('HmgtApp')
-        .config(stateConfig);
+        .config(mapConfig);
 
-    stateConfig.$inject = ['$stateProvider'];
+    mapConfig.$inject = ['$stateProvider'];
 
-    function stateConfig($stateProvider) {
+    function mapConfig($stateProvider) {
         $stateProvider.state('map', {
             parent: 'app',
             url: '/',

@@ -3,8 +3,10 @@
 
   angular
     .module('HmgtApp', [
+        'ngResource',
         'ngMaterial',
         'ui.router',
-        'ui-leaflet'
+        'ui-leaflet',
+        'md.data.table'
     ]);
 })();

@@ -5,6 +5,7 @@
     <title></title>
     <link rel="stylesheet" href="bower_components/angular-material/angular-material.min.css">
     <link rel="stylesheet" href="bower_components/leaflet/dist/leaflet.css">
+    <link href="bower_components/angular-material-data-table/dist/md-data-table.min.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="content/css/main.css">
 </head>
 <body ng-app="HmgtApp">
@@ -20,17 +21,25 @@
     <script src="bower_components/angular-messages/angular-messages.min.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
     <script src="bower_components/angular-material/angular-material.min.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.min.js"></script>
 
     <script src="bower_components/leaflet/dist/leaflet.js"></script>
     <script src="bower_components/angular-simple-logger/dist/angular-simple-logger.min.js"></script>
     <script src="bower_components/ui-leaflet/dist/ui-leaflet.min.js"></script>
 
+    <script type="text/javascript" src="bower_components/angular-material-data-table/dist/md-data-table.min.js"></script>
+
     <script src="app/app.module.js"></script>
     <script src="app/app.state.js"></script>
+    <script src="app/services/minutes.service.js"></script>
     <script src="app/navigation/navbar.controller.js"></script>
     <script src="app/components/map/map.state.js"></script>
     <script src="app/components/map/map.controller.js"></script>
     <script src="app/components/minute/minute.state.js"></script>
     <script src="app/components/minute/minute.controller.js"></script>
+    <script src="app/components/location/location.state.js"></script>
+    <script src="app/components/location/location.controller.js"></script>
+    <script src="app/components/minutes/minutes.state.js"></script>
+    <script src="app/components/minutes/minutes.controller.js"></script>
 </body>
 </html>

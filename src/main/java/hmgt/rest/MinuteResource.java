@@ -6,6 +6,8 @@ import hmgt.model.Location;
 import hmgt.model.Minute;
 import hmgt.repository.LocationRepository;
 import hmgt.repository.MinuteRepository;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.cassandra.repository.MapId;
 import org.springframework.data.cassandra.repository.support.BasicMapId;
@@ -30,9 +32,10 @@ public class MinuteResource {
     }
 
     @GetMapping("/minutes")
-    public ResponseEntity<List<Minute>> getMinutes() {
+    public ResponseEntity<?> getMinutes() {
         final List<Minute> locations = Lists.newArrayList(minuteRepository.findAll());
-        return ResponseEntity.ok(locations);
+        final Page<Minute> page = new Page<>(locations.size(), locations);
+        return ResponseEntity.ok(page);
     }
 
     @PostMapping("/minutes")
@@ -95,5 +98,12 @@ public class MinuteResource {
             return ResponseEntity.ok().build();
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @Getter
+    @AllArgsConstructor
+    private class Page<T> {
+        private int count = 0;
+        private List<T> data;
     }
 }
