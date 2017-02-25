@@ -16,37 +16,43 @@
             }
         });
 
+        var markerList = {};
+        angular.extend($scope, {
+            markers: markerList
+        });
+
         $http({
           method: 'GET',
           url: '/api/minutes'
         }).then(function successCallback(response) {
-            var minutes = response.data;
-            var minute = minutes[0];
+            var minutes = response.data.data;
+            for(var x = 0; x < minutes.length; x++) {
+                var minute = minutes[x];
+                getLocation(minute);
+            }
+         });
 
+         var getLocation = function(minute) {
             var uuid = minute.id;
-
             $http({
               method: 'GET',
               url: '/api/minutes/' + uuid + '/locations'
             }).then(function successCallback(response) {
                 var locations = response.data;
                 var location = locations[0];
+                if(location) {
+                    var marker = {
+                        lat: location.lat,
+                        lng: location.lng,
+                        focus: false,
+                        message: minute.name + ' - ' + location.name,
+                        draggable: false
+                    };
 
-                var mainMarker = {
-                    lat: location.lat,
-                    lng: location.lng,
-                    focus: false,
-                    message: minute.name + ' - ' + location.name,
-                    draggable: false
-                };
 
-                angular.extend($scope, {
-                    markers: {
-                        mainMarker: angular.copy(mainMarker)
-                    }
-                });
+                    markerList[minute.number] = marker;
+                }
              });
-
-         });
+         };
     }
 })();

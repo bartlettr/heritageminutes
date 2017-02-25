@@ -14,6 +14,7 @@ import org.springframework.data.cassandra.repository.support.BasicMapId;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -33,9 +34,9 @@ public class MinuteResource {
 
     @GetMapping("/minutes")
     public ResponseEntity<?> getMinutes() {
-        final List<Minute> locations = Lists.newArrayList(minuteRepository.findAll());
-        final Page<Minute> page = new Page<>(locations.size(), locations);
-        return ResponseEntity.ok(page);
+        final List<Minute> minutes = Lists.newArrayList(minuteRepository.findAll());
+        Collections.sort(minutes);
+        return ResponseEntity.ok(new Page<>(minutes.size(), minutes));
     }
 
     @PostMapping("/minutes")

@@ -2,18 +2,18 @@
     <table md-table md-row-select multiple ng-model="selected" md-progress="promise">
         <thead md-head md-order="query.order" md-on-reorder="getMinutes">
         <tr md-row>
+            <th md-column><span>Number</span></th>
             <th md-column><span>Name</span></th>
-            <th md-column><span>URL</span></th>
             <th md-column>When</th>
             <th md-column>Description</th>
         </tr>
         </thead>
         <tbody md-body>
         <tr md-row md-select="minute" md-select-id="id" md-auto-select ng-repeat="minute in minutes.data">
+            <td md-cell>{{minute.number}}</td>
             <td md-cell>{{minute.name}}</td>
-            <td md-cell>{{minute.url}}</td>
-            <td md-cell>{{minute.when}}</td>
-            <td md-cell>{{dessert.description}}</td>
+            <td md-cell>{{minute.year}}</td>
+            <td md-cell>{{minute.description}}</td>
         </tr>
         </tbody>
     </table>
