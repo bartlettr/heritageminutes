@@ -3,11 +3,11 @@
 
     angular
         .module('HmgtApp')
-        .factory('MinuteService', MinuteService);
+        .factory('Minutes', Minutes);
 
-    MinuteService.$inject = ['$resource'];
+    Minutes.$inject = ['$resource'];
 
-    function MinuteService ($resource) {
-        return $resource('/api/minutes/:minuteId', {});
+    function Minutes ($resource) {
+        return $resource('/api/minutes/:id', {});
     }
 })();

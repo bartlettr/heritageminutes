@@ -7,52 +7,32 @@
 
     MapController.$inject = ['$scope', '$http'];
 
-    function MapController ($scope, $http) {
-        angular.extend($scope, {
-            centreOfCanada: {
-                lat: 62.4,
-                lng: -96.466667,
-                zoom: 3
-            }
-        });
+    function MapController($scope, $http) {
+        var vm = this;
 
-        var markerList = {};
-        angular.extend($scope, {
-            markers: markerList
-        });
+        vm.map =  L.map('map', {scrollWheelZoom: false, zoomControl: false}).setView([60, -96], 4);
 
-        $http({
-          method: 'GET',
-          url: '/api/minutes'
-        }).then(function successCallback(response) {
-            var minutes = response.data.data;
-            for(var x = 0; x < minutes.length; x++) {
-                var minute = minutes[x];
-                getLocation(minute);
-            }
-         });
+        L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
+            maxZoom: 18
+        }).addTo(vm.map);
 
-         var getLocation = function(minute) {
-            var uuid = minute.id;
-            $http({
-              method: 'GET',
-              url: '/api/minutes/' + uuid + '/locations'
-            }).then(function successCallback(response) {
-                var locations = response.data;
-                var location = locations[0];
-                if(location) {
-                    var marker = {
-                        lat: location.lat,
-                        lng: location.lng,
-                        focus: false,
-                        message: minute.name + ' - ' + location.name,
-                        draggable: false
-                    };
-
-
-                    markerList[minute.number] = marker;
+        $http.get('/api/minutes').then(
+            function successCallback(response) {
+                var minutes = response.data.data;
+                for(var x = 0; x < minutes.length; x++) {
+                    var minute = minutes[x];
+                    $http.get('/api/minutes/' + minute.id + '/locations/default').then(
+                        function successCallback(response) {
+                            var location = response.data;
+                            if(location) {
+                                L.marker([location.lat, location.lng]).addTo(vm.map);
+                            }
+                         },
+                         function errorCallback(response) {}
+                     );
                 }
-             });
-         };
+             }
+         );
     }
 })();

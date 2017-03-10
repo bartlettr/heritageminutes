@@ -6,7 +6,8 @@
     "angular-ui-router": "^0.4.2",
     "angular-material": "~1.1.3",
     "angular-material-data-table": "^0.10.10",
-    "ui-leaflet": "^2.0.0",
-    "angular-resource": "^1.6.2"
+    "angular-resource": "^1.6.2",
+    "leaflet": "^1.0.3",
+    "font-awesome": "^4.7.0"
   }
 }

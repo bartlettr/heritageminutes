@@ -25,6 +25,6 @@
 
     function materialConfig($mdThemingProvider) {
         $mdThemingProvider.theme('default')
-          .primaryPalette('grey');
+          .primaryPalette('blue-grey');
     }
 })();

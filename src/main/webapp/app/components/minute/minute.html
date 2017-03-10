@@ -1,32 +1,48 @@
-<div layout="column" ng-cloak class="md-inline-form">
-    <md-content layout-padding>
-        <div>
-            <form name="userForm">
-                <div layout-gt-sm="row">
-                    <md-input-container class="md-block" flex-gt-sm>
-                        <label>Name</label>
-                        <input ng-model="minute.name">
-                    </md-input-container>
-                </div>
-                <div layout-gt-sm="row">
-                    <md-input-container class="md-block" flex-gt-sm>
-                        <label>URL</label>
-                        <input ng-model="minute.url">
-                    </md-input-container>
-                </div>
-                <div layout-gt-sm="row">
-                    <md-input-container class="md-block" flex-gt-sm>
-                        <label>When?</label>
-                        <input ng-model="minute.when">
-                    </md-input-container>
-                </div>
-                <md-input-container class="md-block">
-                    <label>Description</label>
-                    <textarea ng-model="minute.description" md-maxlength="500" rows="5" md-select-on-focus></textarea>
-                </md-input-container>
+<md-card>
+    <md-card-title>
+        <md-card-title-text>
+            <span class="md-headline">{{action}} Minute</span>
+        </md-card-title-text>
+    </md-card-title>
 
-                <md-button class="md-raised md-primary" ng-click="save()">Save</md-button>
-            </form>
-        </div>
-    </md-content>
-</div>
+    <md-card-content>
+        <form name="minuteForm">
+            <div layout-gt-sm="row">
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>Name</label>
+                    <input ng-model="minute.name">
+                </md-input-container>
+            </div>
+            <div layout-gt-sm="row">
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>Number</label>
+                    <input ng-model="minute.number">
+                </md-input-container>
+            </div>
+            <div layout-gt-sm="row">
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>URL</label>
+                    <input ng-model="minute.url">
+                </md-input-container>
+            </div>
+            <div layout-gt-sm="row">
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>When?</label>
+                    <input ng-model="minute.year">
+                </md-input-container>
+            </div>
+            <div layout-gt-sm="row">
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>Hark a Vagrant</label>
+                    <input ng-model="minute.harkVagrant">
+                </md-input-container>
+            </div>
+            <md-input-container class="md-block">
+                <label>Description</label>
+                <textarea ng-model="minute.description" md-maxlength="500" rows="5" md-select-on-focus></textarea>
+            </md-input-container>
+
+            <md-button class="md-raised md-primary" ng-click="save()">Save</md-button>
+        </form>
+    </md-card-content>
+</md-card>

@@ -19,6 +19,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 @Slf4j
@@ -41,12 +43,16 @@ public class UploadResource {
         try {
             final Reader reader = new InputStreamReader(file.getInputStream());
             final CSVParser parser = CSVFormat.DEFAULT.parse(reader);
+
+            Map<String, Integer> columns = null;
             for(CSVRecord row : parser.getRecords()) {
                 if(Objects.equals("Number", row.get(0))) {
-                    continue;
+                    columns = getColumns(row);
+                } else {
+                    processRow(columns, row);
                 }
-                processRow(row);
             }
+
             reader.close();
         } catch(IOException ex) {
             ResponseEntity.badRequest().build();
@@ -54,10 +60,18 @@ public class UploadResource {
         return ResponseEntity.ok().build();
     }
 
-    private void processRow(final CSVRecord row) {
-        final Minute minute = minuteRepository.findByName(row.get(1))
-                .orElse(minuteRepository.save(Minute.fromRow(row)));
-        final Location location = Location.fromRow(row);
+    private Map<String, Integer> getColumns(final CSVRecord row) {
+        final Map<String, Integer> columns = new HashMap<>();
+        for(int x = 0; x < row.size(); x++) {
+            columns.put(row.get(x), x);
+        }
+        return columns;
+    }
+
+    private void processRow(final Map<String, Integer> columns, final CSVRecord row) {
+        final Minute minute = minuteRepository.findByName(row.get(columns.get("Minute")))
+                .orElse(minuteRepository.save(Minute.fromRow(columns, row)));
+        final Location location = Location.fromRow(columns, row);
         location.setMinuteId(minute.getId());
         locationRepository.save(location);
     }

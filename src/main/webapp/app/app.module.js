@@ -6,7 +6,6 @@
         'ngResource',
         'ngMaterial',
         'ui.router',
-        'ui-leaflet',
         'md.data.table'
     ]);
 })();
