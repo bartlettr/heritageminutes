@@ -8,6 +8,7 @@
     "angular-material-data-table": "^0.10.10",
     "angular-resource": "^1.6.2",
     "leaflet": "^1.0.3",
-    "font-awesome": "^4.7.0"
+    "font-awesome": "^4.7.0",
+    "leaflet.markercluster": "Leaflet.markercluster#^1.0.3"
   }
 }

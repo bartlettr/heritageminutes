@@ -5,9 +5,9 @@
         .module('HmgtApp')
         .controller('MinutesController', MinutesController);
 
-    MinutesController.$inject = ['$scope', 'Minutes', '$state'];
+    MinutesController.$inject = ['$scope', 'Minutes', '$state', '$mdDialog'];
 
-    function MinutesController($scope, Minutes, $state) {
+    function MinutesController($scope, Minutes, $state, $mdDialog) {
       $scope.selected = [];
 
       $scope.query = {
@@ -25,13 +25,34 @@
 
       $scope.getMinutes();
 
-      $scope.edit = function() {
+      $scope.doEdit = function() {
           var selected = $scope.selected[0];
-          $state.go('^.minute.edit', {id: selected.id});
+          $state.go('.edit', {id: selected.id});
       };
 
-      $scope.create = function() {
-        $state.go('^.minute.create');
+      $scope.doCreate = function() {
+        $state.go('.create');
       };
+
+      function doDeleteConfirm() {
+        var selected = $scope.selected[0];
+        Minutes.delete({id: selected.id}, function() {
+            $scope.selected = [];
+            $scope.getMinutes();
+        });
+      }
+
+      $scope.doDelete = function(ev) {
+          var confirm = $mdDialog.confirm()
+                .title('Delete Minute?')
+                .textContent('You sure you want to delete this minute?')
+                .targetEvent(ev)
+                .ok('Yes')
+                .cancel('No');
+
+          $mdDialog.show(confirm).then(function() {
+            doDeleteConfirm();
+          }, function() {});
+        };
     }
 })();

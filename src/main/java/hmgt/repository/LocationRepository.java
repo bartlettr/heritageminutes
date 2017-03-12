@@ -13,7 +13,4 @@ public interface LocationRepository extends CassandraRepository<Location> {
 
     @Query("SELECT * FROM locations WHERE minuteId=?0 ALLOW FILTERING")
     List<Location> findByMinuteId(UUID minuteId);
-
-    @Query("DELETE FROM locations WHERE minuteId=?0")
-    void deleteByMinuteId(UUID minuteId);
 }

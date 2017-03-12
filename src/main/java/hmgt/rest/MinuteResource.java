@@ -3,13 +3,12 @@ package hmgt.rest;
 import com.datastax.driver.core.utils.UUIDs;
 import com.google.common.collect.Lists;
 import hmgt.model.Location;
-import hmgt.model.LocationCategory;
 import hmgt.model.Minute;
-import hmgt.repository.LocationCategoryRepository;
 import hmgt.repository.LocationRepository;
 import hmgt.repository.MinuteRepository;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.cassandra.repository.MapId;
 import org.springframework.data.cassandra.repository.support.BasicMapId;
@@ -21,21 +20,19 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
+@Slf4j
 @RestController
 @RequestMapping("/api")
 public class MinuteResource {
 
     private final LocationRepository locationRepository;
-    private final LocationCategoryRepository locationCategoryRepository;
     private final MinuteRepository minuteRepository;
 
     @Autowired
     public MinuteResource(final MinuteRepository minuteRepository,
-                          final LocationRepository locationRepository,
-                          final LocationCategoryRepository locationCategoryRepository) {
+                          final LocationRepository locationRepository) {
         this.minuteRepository = minuteRepository;
         this.locationRepository = locationRepository;
-        this.locationCategoryRepository = locationCategoryRepository;
     }
 
     @GetMapping("/minutes")
@@ -46,8 +43,12 @@ public class MinuteResource {
 
         if(page != null && limit != null) {
             final int start = (page - 1) * limit;
-            minutes.subList(start, start + (limit - 1));
-            return ResponseEntity.ok(new Page<>(minutes.size(), minutes.subList(start, start + limit)));
+            final int end = start + limit < minutes.size()
+                    ? start + limit : minutes.size();
+
+            log.info("{} {} {}", start, end, minutes.size());
+
+            return ResponseEntity.ok(new Page<>(minutes.size(), minutes.subList(start, end)));
         }
         return ResponseEntity.ok(new Page<>(minutes.size(), minutes));
     }
@@ -77,7 +78,19 @@ public class MinuteResource {
         final Minute minute = minuteRepository.findOne(mapId);
         if(minute != null) {
             minuteRepository.delete(minute);
-            locationRepository.deleteByMinuteId(uuid);
+            final List<Location> locations = locationRepository.findByMinuteId(minute.getId());
+            for(Location location : locations) {
+                locationRepository.delete(location);
+            }
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @PutMapping("/minutes/{id}")
+    public ResponseEntity<?> updateMinute(@RequestBody final Minute minute) {
+        if(minuteRepository.exists(new BasicMapId().with("id", minute.getId()))) {
+            minuteRepository.save(minute);
             return ResponseEntity.ok().build();
         }
         return ResponseEntity.notFound().build();
@@ -117,19 +130,6 @@ public class MinuteResource {
             return ResponseEntity.ok().build();
         }
         return ResponseEntity.notFound().build();
-    }
-
-    @GetMapping("/locations/categories")
-    public ResponseEntity<?> getLocationCategories() {
-        final List<LocationCategory> locationCategories = Lists.newArrayList(locationCategoryRepository.findAll());
-        return ResponseEntity.ok(locationCategories);
-    }
-
-    @PostMapping("/locations/categories")
-    public ResponseEntity<?> createLocationCategory(@RequestBody final LocationCategory locationCategory) {
-        locationCategory.setId(UUIDs.timeBased());
-        locationCategoryRepository.save(locationCategory);
-        return ResponseEntity.ok(locationCategory.getId());
     }
 
     @Getter

@@ -8,15 +8,9 @@
     minuteConfig.$inject = ['$stateProvider'];
 
     function minuteConfig($stateProvider) {
-        $stateProvider.state('minute',
+        $stateProvider.state('minutes.create',
             {
-                parent: 'app',
-                abstract: true
-            }
-        ).state('create',
-            {
-                parent: 'minute',
-                url: '/minute',
+                url: '/create',
                 data: {
                     authorities: []
                 },
@@ -28,10 +22,9 @@
                     }
                 }
              }
-        ).state('edit',
+        ).state('minutes.edit',
              {
-                 parent: 'minute',
-                 url: '/minute/:id',
+                 url: '/:id',
                  data: {
                      authorities: []
                  },

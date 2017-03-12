@@ -8,6 +8,10 @@
     Minutes.$inject = ['$resource'];
 
     function Minutes ($resource) {
-        return $resource('/api/minutes/:id', {});
+        return $resource('/api/minutes/:id', null,
+            {
+                'update': { method:'PUT' }
+            }
+        );
     }
 })();

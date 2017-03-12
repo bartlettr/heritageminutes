@@ -3,14 +3,14 @@
         <div class="md-toolbar-tools">
             <h2 class="md-title">Minutes</h2>
             <div flex></div>
-            <md-button class="md-icon-button" ng-click="create()">
-                <i class="fa fa-plus" aria-hidden="true"></i>
+            <md-button class="md-fab md-mini md-primary" ng-disabled="!selected.length" ng-click="doEdit()">
+                <md-icon md-font-icon="fa-pencil" class="fa"></md-icon>
             </md-button>
-            <md-button class="md-icon-button" ng-disabled="!selected.length" ng-click="edit()">
-                <i class="fa fa-pencil" aria-hidden="true"></i>
+            <md-button class="md-fab md-mini md-primary" ng-disabled="!selected.length" ng-click="doDelete()">
+                <md-icon md-font-icon="fa-trash" class="fa"></md-icon>
             </md-button>
-            <md-button class="md-icon-button" ng-disabled="!selected.length" ng-click="delete()">
-                <i class="fa fa-trash" aria-hidden="true"></i>
+            <md-button class="md-fab md-mini md-primary" ng-click="doCreate()">
+                <md-icon md-font-icon="fa-plus" class="fa"></md-icon>
             </md-button>
         </div>
     </md-toolbar>
