@@ -9,6 +9,8 @@
     "angular-resource": "^1.6.2",
     "leaflet": "^1.0.3",
     "font-awesome": "^4.7.0",
-    "leaflet.markercluster": "Leaflet.markercluster#^1.0.3"
+    "leaflet.markercluster": "Leaflet.markercluster#^1.0.3",
+    "Leaflet.extra-markers": "^1.0.6",
+    "lf-ng-md-file-input": "^1.5.1"
   }
 }

@@ -16,7 +16,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 @Table(value = "minutes")
-public class Minute implements Comparable<Minute> {
+public class Minute {
     @PrimaryKey
     private UUID id;
     private int number;
@@ -25,11 +25,6 @@ public class Minute implements Comparable<Minute> {
     private String description;
     private String year;
     private String harkVagrant;
-
-    @Override
-    public int compareTo(final Minute other) {
-        return getNumber() - other.getNumber();
-    }
 
     public static Minute fromRow(final Map<String, Integer> columns, final CSVRecord row) {
         return Minute.builder()

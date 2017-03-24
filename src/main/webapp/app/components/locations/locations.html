@@ -1,11 +1,8 @@
 <md-card>
     <md-toolbar class="md-table-toolbar md-default">
         <div class="md-toolbar-tools">
-            <h2 class="md-title">Minutes</h2>
+            <h2 class="md-title">Locations</h2>
             <div flex></div>
-            <md-button class="md-fab md-mini md-primary" ng-disabled="!selected.length" ng-click="doLocations()">
-                <md-icon md-font-icon="fa-map-marker" class="fa"></md-icon>
-            </md-button>
             <md-button class="md-fab md-mini md-primary" ng-disabled="!selected.length" ng-click="doEdit()">
                 <md-icon md-font-icon="fa-pencil" class="fa"></md-icon>
             </md-button>
@@ -15,29 +12,30 @@
             <md-button class="md-fab md-mini md-primary" ng-click="doCreate()">
                 <md-icon md-font-icon="fa-plus" class="fa"></md-icon>
             </md-button>
+            <md-button class="md-fab md-mini md-primary" ng-click="doBack()">
+                <md-icon md-font-icon="fa-arrow-left" class="fa"></md-icon>
+            </md-button>
         </div>
     </md-toolbar>
 
     <md-table-container>
         <table md-table md-row-select ng-model="selected" md-progress="promise">
-            <thead md-head md-order="query.order" md-on-reorder="getMinutes">
+            <thead md-head md-order="query.order" md-on-reorder="getLocations">
             <tr md-row>
-                <th md-column><span>Number</span></th>
-                <th md-column><span>Name</span></th>
-                <th md-column>URL</th>
-                <th md-column>Year</th>
+                <th md-column>Name</th>
+                <th md-column>Group</th>
+                <th md-column>Date Completed</th>
             </tr>
             </thead>
             <tbody md-body>
-            <tr md-row md-select="minute" md-select-id="id" md-auto-select ng-repeat="minute in minutes.data">
-                <td md-cell>{{minute.number}}</td>
-                <td md-cell>{{minute.name}}</td>
-                <td md-cell>{{minute.url}}</td>
-                <td md-cell>{{minute.year}}</td>
+            <tr md-row md-select="location" md-select-id="id" md-auto-select ng-repeat="location in locations.data">
+                <td md-cell>{{location.name}}</td>
+                <td md-cell>{{location.group}}</td>
+                <td md-cell>{{location.dateCompleted | date:'longDate'}}</td>
             </tr>
             </tbody>
         </table>
     </md-table-container>
 
-    <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{minutes.count}}" md-on-paginate="getMinutes" md-page-select></md-table-pagination>
+    <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{locations.count}}" md-on-paginate="getLocations" md-page-select></md-table-pagination>
 </md-card>

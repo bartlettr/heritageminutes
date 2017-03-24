@@ -55,6 +55,7 @@ public class UploadResource {
 
             reader.close();
         } catch(IOException ex) {
+            log.error("Failed to upload file!", ex);
             ResponseEntity.badRequest().build();
         }
         return ResponseEntity.ok().build();

@@ -8,9 +8,8 @@
     locationConfig.$inject = ['$stateProvider'];
 
     function locationConfig($stateProvider) {
-        $stateProvider.state('location', {
-            parent: 'app',
-            url: '/location',
+        $stateProvider.state('minutes.locations.edit', {
+            url: '/:locationId',
             data: {
                 authorities: []
             },

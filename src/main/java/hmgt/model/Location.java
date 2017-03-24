@@ -26,7 +26,6 @@ public class Location {
     private String city;
     private String province;
     private String sources;
-    private UUID category;
     private String group = "default";
     private float lat;
     private float lng;

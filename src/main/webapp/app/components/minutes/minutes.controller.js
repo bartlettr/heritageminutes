@@ -30,16 +30,21 @@
           $state.go('.edit', {id: selected.id});
       };
 
+      $scope.doLocations = function() {
+          var selected = $scope.selected[0];
+          $state.go('.locations', {minuteId: selected.id});
+      };
+
       $scope.doCreate = function() {
-        $state.go('.create');
+          $state.go('.create');
       };
 
       function doDeleteConfirm() {
-        var selected = $scope.selected[0];
-        Minutes.delete({id: selected.id}, function() {
-            $scope.selected = [];
-            $scope.getMinutes();
-        });
+          var selected = $scope.selected[0];
+          Minutes.delete({id: selected.id}, function() {
+              $scope.selected = [];
+              $scope.getMinutes();
+          });
       }
 
       $scope.doDelete = function(ev) {
@@ -53,6 +58,6 @@
           $mdDialog.show(confirm).then(function() {
             doDeleteConfirm();
           }, function() {});
-        };
+      };
     }
 })();
