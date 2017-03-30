@@ -5,9 +5,9 @@
         .module('HmgtApp')
         .controller('LocationsController', LocationsController);
 
-    LocationsController.$inject = ['$scope', 'Locations', '$state', '$mdDialog'];
+    LocationsController.$inject = ['$scope', 'Locations', 'Location', '$state', '$mdDialog'];
 
-    function LocationsController($scope, Locations, $state, $mdDialog) {
+    function LocationsController($scope, Locations, Location, $state, $mdDialog) {
         var minuteId = $state.params.minuteId;
 
         $scope.selected = [];
@@ -43,10 +43,10 @@
 
         function doDeleteConfirm() {
             var selected = $scope.selected[0];
-            /* Locations.delete({id: selected.id}, function() {
+            Location.delete({id: selected.id}, function() {
                 $scope.selected = [];
-                $scope.getMinutes();
-            }); */
+                $scope.getLocations();
+            });
         }
 
         $scope.doDelete = function(ev) {
