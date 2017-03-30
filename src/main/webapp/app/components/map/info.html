@@ -26,6 +26,12 @@
                 <div>{{info.location.city}}, {{info.location.province}}</div>
             </div>
         </div>
+        <div class="control-content" ng-show="info.location.dateCompleted">
+            <div class="info-field">
+                <div>Date Completed</div>
+                <div>{{info.location.dateCompleted | date:'longDate'}}</div>
+            </div>
+        </div>
     </div>
     <div class="control-close"><a ng-click="closeInfo()">close</a></div>
 </div>
