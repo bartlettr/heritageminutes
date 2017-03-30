@@ -17,3 +17,91 @@ md-toolbar .md-button {
 #map {
     height: 100%;
 }
+
+.marker-cluster-small {
+	background-color: rgba(51, 102, 255, 0.5);
+}
+
+.marker-cluster-small div {
+	background-color: rgba(51, 102, 255, 0.4);
+}
+
+.marker-cluster-medium {
+	background-color: rgba(51, 102, 255, 0.5);
+}
+
+.marker-cluster-medium div {
+	background-color: rgba(51, 102, 255, 0.4);
+}
+
+.marker-cluster-large {
+	background-color: rgba(51, 102, 255, 0.5);
+}
+
+.marker-cluster-large div {
+	background-color: rgba(51, 102, 255, 0.4);
+}
+
+.tooltip {
+    font-size: 18px;
+}
+
+.tooltip-row :first-child {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.control {
+    width: 450px;
+    background: white;
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,.2),
+        0 1px 1px 0 rgba(0,0,0,.14),
+        0 2px 1px -1px rgba(0,0,0,.12);
+    padding: 15px;
+    max-height: 600px;
+    transition: max-height 0.4s ease-in-out;
+    overflow-y: hidden;
+}
+
+.control a {
+    text-decoration: none;
+}
+
+.message-control.ng-hide {
+    max-height: 0;
+}
+
+.control-title {
+    font-size: 18px;
+}
+
+.control-title :first-child {
+    font-weight: bold;
+}
+
+.control-section {
+    margin-bottom: 15px;
+}
+
+.control-content {
+    font-size: 15px;
+}
+
+.control-close {
+    width: 100%;
+    font-size: 15px;
+    font-weight: bold;
+    text-align: right;
+}
+
+.control-close a {
+    cursor: pointer;
+}
+
+.info-control.ng-hide {
+    max-height: 0;
+}
+
+.info-field :first-child {
+    font-weight: bold;
+}

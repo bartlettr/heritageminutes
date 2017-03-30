@@ -1,0 +1,31 @@
+<div class="control info-control" ng-show="info.visible">
+    <div class="control-section">
+        <div class="control-title">
+            <span>Minute</span> <a target="_blank" href="{{info.minute.url}}">{{info.minute.name}}</a>
+        </div>
+        <div class="control-content">
+            <div class="info-field">
+                <div>Description</div>
+                <div>{{info.minute.description}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="control-section">
+        <div class="control-title">
+            <span>Location</span> {{info.location.name}}
+        </div>
+        <div class="control-content">
+            <div class="info-field">
+                <div>Why here?</div>
+                <div>{{info.location.whyHere}}</div>
+            </div>
+        </div>
+        <div class="control-content">
+            <div class="info-field">
+                <div>Location</div>
+                <div>{{info.location.city}}, {{info.location.province}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="control-close"><a ng-click="closeInfo()">close</a></div>
+</div>

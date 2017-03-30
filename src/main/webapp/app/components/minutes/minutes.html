@@ -3,16 +3,16 @@
         <div class="md-toolbar-tools">
             <h2 class="md-title">Minutes</h2>
             <div flex></div>
-            <md-button class="md-fab md-mini md-primary" ng-disabled="!selected.length" ng-click="doLocations()">
+            <md-button class="md-fab md-mini md-primary" ng-disabled="!selected.length" ng-click="doLocations()" aria-label="Locations">
                 <md-icon md-font-icon="fa-map-marker" class="fa"></md-icon>
             </md-button>
-            <md-button class="md-fab md-mini md-primary" ng-disabled="!selected.length" ng-click="doEdit()">
+            <md-button class="md-fab md-mini md-primary" ng-disabled="!selected.length" ng-click="doEdit()" aria-label="Edit">
                 <md-icon md-font-icon="fa-pencil" class="fa"></md-icon>
             </md-button>
-            <md-button class="md-fab md-mini md-primary" ng-disabled="!selected.length" ng-click="doDelete()">
+            <md-button class="md-fab md-mini md-primary" ng-disabled="!selected.length" ng-click="doDelete()" aria-label="Delete">
                 <md-icon md-font-icon="fa-trash" class="fa"></md-icon>
             </md-button>
-            <md-button class="md-fab md-mini md-primary" ng-click="doCreate()">
+            <md-button class="md-fab md-mini md-primary" ng-click="doCreate()" aria-label="Create">
                 <md-icon md-font-icon="fa-plus" class="fa"></md-icon>
             </md-button>
         </div>
