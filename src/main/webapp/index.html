@@ -17,7 +17,7 @@
 <body ng-app="HmgtApp">
     <div layout="column" layout-fill>
         <div><ui-view name="navbar"></ui-view></div>
-        <div flex><ui-view name="content"></ui-view></div>
+        <div ng-cloak flex><ui-view name="content"></ui-view></div>
     </div>
 
     <script src="bower_components/angular/angular.min.js"></script>

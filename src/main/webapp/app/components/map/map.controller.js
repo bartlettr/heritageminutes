@@ -42,16 +42,15 @@
         vm.markers = L.markerClusterGroup({showCoverageOnHover: false, maxClusterRadius: 20});
         vm.map.addLayer(vm.markers);
 
-        $http.get('/api/minutes').then(
-            function successCallback(response) {
-                vm.minutes = response.data.data;
-                for(var x = 0; x < vm.minutes.length; x++) {
-                    var minute = vm.minutes[x];
-                    var locationUrl = '/api/minutes/' + minute.id + '/locations?group=default';
-                    $http.get(locationUrl).then(addLocation);
+        $http.get('/api/minutes').then(function(minutes) {
+            vm.minutes = minutes.data.data;
+            $http.get('/api/locations?group=default').then(function(locations) {
+                vm.locations = locations.data;
+                for(var x = 0; x < vm.locations.length; x++) {
+                    addLocation(vm.locations[x]);
                 }
-            }
-        );
+            });
+        });
 
         function getMinute(id) {
             return vm.minutes.find(function(element) {
@@ -59,37 +58,34 @@
             });
         }
 
-        function addLocation(response) {
-            var location = response.data;
-            if(location) {
-                var markerColour = location.dateCompleted ? 'green-light' : 'blue';
-                var markerIcon = L.ExtraMarkers.icon({
-                    markerColor: markerColour,
-                    shape: 'circle'
+        function addLocation(location) {
+            var markerColour = location.dateCompleted ? 'green-light' : 'blue';
+            var markerIcon = L.ExtraMarkers.icon({
+                markerColor: markerColour,
+                shape: 'circle'
+            });
+
+            var marker = new L.marker([location.lat, location.lng], {icon: markerIcon});
+            vm.markers.addLayer(marker);
+
+            marker.on('click', function() {
+                var minute = this.minute;
+                var location = this.location;
+
+                $scope.$apply(function() {
+                    $scope.message.hidden = true;
+                    $scope.info.minute = minute;
+                    $scope.info.location = location;
+                    $scope.info.visible = true;
                 });
+            });
 
-                var marker = new L.marker([location.lat, location.lng], {icon: markerIcon});
-                vm.markers.addLayer(marker);
+            var minute = getMinute(location.minuteId);
 
-                marker.on('click', function() {
-                    var minute = this.minute;
-                    var location = this.location;
+            marker.location = location;
+            marker.minute = minute;
 
-                    $scope.$apply(function() {
-                        $scope.message.hidden = true;
-                        $scope.info.minute = minute;
-                        $scope.info.location = location;
-                        $scope.info.visible = true;
-                    });
-                });
-
-                var minute = getMinute(location.minuteId);
-
-                marker.location = location;
-                marker.minute = minute;
-
-                addTooltip(marker, location, minute);
-            }
+            addTooltip(marker, location, minute);
         }
 
         function addTooltip(marker, location, minute) {

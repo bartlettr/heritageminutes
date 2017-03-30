@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Slf4j
 @RestController
@@ -117,6 +118,17 @@ public class MinuteResource {
             return ResponseEntity.ok(locations);
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/locations")
+    public ResponseEntity<?> getLocations(@RequestParam(required = false) final String group) {
+        final List<Location> locations = Lists.newArrayList(locationRepository.findAll());
+        if(group != null) {
+            final List<Location> result = locations.stream().filter(location
+                    -> Objects.equals(location.getGroup(), group)).collect(Collectors.toList());
+            return ResponseEntity.ok(result);
+        }
+        return ResponseEntity.ok(locations);
     }
 
     @GetMapping("/locations/{id}")

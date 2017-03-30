@@ -4,15 +4,19 @@
             <h2 class="md-title">Minutes</h2>
             <div flex></div>
             <md-button class="md-fab md-mini md-primary" ng-disabled="!selected.length" ng-click="doLocations()" aria-label="Locations">
+                <md-tooltip md-direction="bottom">Locations</md-tooltip>
                 <md-icon md-font-icon="fa-map-marker" class="fa"></md-icon>
             </md-button>
             <md-button class="md-fab md-mini md-primary" ng-disabled="!selected.length" ng-click="doEdit()" aria-label="Edit">
+                <md-tooltip md-direction="bottom">Edit</md-tooltip>
                 <md-icon md-font-icon="fa-pencil" class="fa"></md-icon>
             </md-button>
             <md-button class="md-fab md-mini md-primary" ng-disabled="!selected.length" ng-click="doDelete()" aria-label="Delete">
+                <md-tooltip md-direction="bottom">Delete</md-tooltip>
                 <md-icon md-font-icon="fa-trash" class="fa"></md-icon>
             </md-button>
             <md-button class="md-fab md-mini md-primary" ng-click="doCreate()" aria-label="Create">
+                <md-tooltip md-direction="bottom">Create</md-tooltip>
                 <md-icon md-font-icon="fa-plus" class="fa"></md-icon>
             </md-button>
         </div>
