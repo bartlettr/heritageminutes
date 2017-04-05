@@ -11,7 +11,7 @@
         var vm = this;
 
         vm.message = {};
-        vm.message.hidden = false; //localStorageService.get('messageHidden');
+        vm.message.hidden = localStorageService.get('messageHidden');
 
         vm.info = {};
         vm.info.visible = false;
@@ -24,6 +24,13 @@
                 '&copy; <a href="https://carto.com/attribution">CARTO</a>',
             maxZoom: 18,
         }).addTo(vm.map);
+
+        var resetZoomControl = new L.control({ position: 'bottomleft' });
+        resetZoomControl.onAdd = function (map) {
+            return createControl(resetZoomControl,
+                'app/components/map/reset-zoom.html');
+        };
+        resetZoomControl.addTo(vm.map);
 
         var messageControl = new L.control({ position: 'topleft' });
         messageControl.onAdd = function (map) {
@@ -46,8 +53,9 @@
         };
         sideControl.addTo(vm.map);
 
-        vm.markers = L.markerClusterGroup({showCoverageOnHover: false, maxClusterRadius: 20});
-        vm.map.addLayer(vm.markers);
+        vm.markers = [];
+        vm.markerClusterGroup = L.markerClusterGroup({showCoverageOnHover: false, maxClusterRadius: 20});
+        vm.map.addLayer(vm.markerClusterGroup);
 
         $http.get('/api/minutes').then(function(minutes) {
             vm.minutes = minutes.data.data;
@@ -59,15 +67,15 @@
             });
         });
 
-        function getMinute(id) {
-            return vm.minutes.find(function(minute) {
-                return minute.id === id;
+        function getMarker(id) {
+            return vm.markers.find(function(marker) {
+                return marker.minute.id === id;
             });
         }
 
-        function getLocationForMinute(minuteId) {
-            return vm.locations.find(function(location) {
-                return location.minuteId === minuteId;
+        function getMinute(id) {
+            return vm.minutes.find(function(minute) {
+                return minute.id === id;
             });
         }
 
@@ -79,13 +87,13 @@
             });
 
             var marker = new L.marker([location.lat, location.lng], {icon: markerIcon});
-            vm.markers.addLayer(marker);
+            vm.markerClusterGroup.addLayer(marker);
+            vm.markers.push(marker);
 
             marker.on('click', function() {
-                var minute = this.minute;
-                var location = this.location;
+                var marker = this;
                 $scope.$apply(function() {
-                    showMinuteInfo(minute, location);
+                    showMinuteInfo(marker);
                 });
             });
 
@@ -93,21 +101,36 @@
 
             marker.location = location;
             marker.minute = minute;
-
-            addTooltip(marker, location, minute);
+            addTooltip(marker, false);
         }
 
-        function showMinuteInfo(minute, location) {
-            vm.message.hidden = true;
-            vm.info.minute = minute;
-            vm.info.location = location;
-            vm.info.visible = true;
+        function toggleTooltip(marker, permanent) {
+            if(marker) {
+                marker.unbindTooltip();
+                addTooltip(marker, permanent)
+            }
         }
 
-        function addTooltip(marker, location, minute) {
-            var tooltip = L.tooltip({offset: [1, -20], direction: 'top'})
-                .setContent('<div class="tooltip"><div class="tooltip-row"><span>Minute</span><span>' + minute.name +
-                    '</span></div><div class="tooltip-row"><span>Location</span><span>' + location.name + "</span></div></div>");
+        function showMinuteInfo(marker) {
+            vm.markerClusterGroup.zoomToShowLayer(marker, function() {
+                toggleTooltip(vm.marker, false);
+                vm.marker = marker;
+                toggleTooltip(vm.marker, true);
+
+                var minute = marker.minute;
+                var location = marker.location;
+
+                vm.message.hidden = true;
+                vm.info.minute = minute;
+                vm.info.location = location;
+                vm.info.visible = true;
+            });
+        }
+
+        function addTooltip(marker, permanent) {
+            var tooltip = L.tooltip({offset: [1, -20], permanent: permanent})
+                .setContent('<div class="tooltip"><div class="tooltip-row"><span>Minute</span><span>' + marker.minute.name +
+                    '</span></div><div class="tooltip-row"><span>Location</span><span>' + marker.location.name + "</span></div></div>");
             marker.bindTooltip(tooltip);
         }
 
@@ -123,11 +146,13 @@
         }
 
         vm.closeMessage = function() {
-            //localStorageService.set('messageHidden', true);
+            localStorageService.set('messageHidden', true);
             vm.message.hidden = true;
         }
 
         vm.closeInfo = function() {
+            toggleTooltip(vm.marker, false);
+            vm.marker = null;
             vm.info.visible = false;
         }
 
@@ -136,9 +161,12 @@
         }
 
         vm.showInfo = function(id) {
-            var minute = getMinute(id);
-            var location = getLocationForMinute(id);
-            showMinuteInfo(minute, location);
+            var marker = getMarker(id);
+            showMinuteInfo(marker);
+        }
+
+        vm.resetZoom = function(id) {
+            vm.map.setView([57, -93], 4);
         }
     }
 })();

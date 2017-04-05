@@ -18,27 +18,15 @@ md-toolbar .md-button {
     height: 100%;
 }
 
-.marker-cluster-small {
+.marker-cluster-small,
+        .marker-cluster-medium,
+        .marker-cluster-large {
 	background-color: rgba(51, 102, 255, 0.5);
 }
 
-.marker-cluster-small div {
-	background-color: rgba(51, 102, 255, 0.4);
-}
-
-.marker-cluster-medium {
-	background-color: rgba(51, 102, 255, 0.5);
-}
-
-.marker-cluster-medium div {
-	background-color: rgba(51, 102, 255, 0.4);
-}
-
-.marker-cluster-large {
-	background-color: rgba(51, 102, 255, 0.5);
-}
-
-.marker-cluster-large div {
+.marker-cluster-small div,
+        .marker-cluster-medium div,
+        .marker-cluster-large div {
 	background-color: rgba(51, 102, 255, 0.4);
 }
 
@@ -114,7 +102,7 @@ md-sidenav {
     border: none !important;
     box-shadow: 0 1px 3px 0 rgba(0,0,0,.2),
         0 1px 1px 0 rgba(0,0,0,.14),
-        0 2px 1px -1px rgba(0,0,0,.12)  !important;;
+        0 2px 1px -1px rgba(0,0,0,.12)  !important;
 }
 
 .leaflet-bar a:first-child {
@@ -123,4 +111,17 @@ md-sidenav {
 
 .leaflet-bar a:last-child {
     border-radius: 0 !important;
+}
+
+.reset-zoom-control {
+    background: #fff;
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,.2),
+            0 1px 1px 0 rgba(0,0,0,.14),
+            0 2px 1px -1px rgba(0,0,0,.12);
+    width: 30px;
+    height: 29px;
+    padding-top: 1px;
+    text-align: center;
+    font-size: 18px;
+    cursor: pointer;
 }

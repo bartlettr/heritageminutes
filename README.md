@@ -1,10 +1,10 @@
 # Heritage Minutes Grand Tour Website
 This is the website for the Heritage Minutes Grand Tour.
 
-Current issues / requirements:
+Current issues / enhancements (in no order):
 1) Date in Edit Location
-2) A search in minutes list would be nice...
-3) Also search on map!
-4) Zoom back to view all button.
-5) Scoll wheel zoom.
-6) fancier cluster icons? Green ones when there is a location (or locations) that have been visited...
+2) Fancier cluster icons? Maybe green ones when there is a location (or locations) that have been visited.
+3) A search in the minutes table.
+4) A legend in the map.
+5) Mobile version.A
+6) Sources in info box.
