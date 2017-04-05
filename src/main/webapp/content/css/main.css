@@ -32,9 +32,9 @@ md-toolbar .md-button {
 
 .tooltip {
     font-size: 14px;
-}
+ }
 
-.tooltip-row :first-child {
+.tooltip :first-child {
     font-weight: bold;
     margin-right: 5px;
 }

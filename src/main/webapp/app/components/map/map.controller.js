@@ -117,6 +117,8 @@
                 vm.marker = marker;
                 toggleTooltip(vm.marker, true);
 
+                console.log("SHLOW");
+
                 var minute = marker.minute;
                 var location = marker.location;
 
@@ -129,8 +131,7 @@
 
         function addTooltip(marker, permanent) {
             var tooltip = L.tooltip({offset: [1, -20], permanent: permanent})
-                .setContent('<div class="tooltip"><div class="tooltip-row"><span>Minute</span><span>' + marker.minute.name +
-                    '</span></div><div class="tooltip-row"><span>Location</span><span>' + marker.location.name + "</span></div></div>");
+                .setContent('<div class="tooltip"><span>Minute #' + marker.minute.number + '</span></span>' + marker.minute.name + '</div>');
             marker.bindTooltip(tooltip);
         }
 
