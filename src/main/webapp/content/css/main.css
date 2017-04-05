@@ -43,7 +43,7 @@ md-toolbar .md-button {
 }
 
 .tooltip {
-    font-size: 18px;
+    font-size: 14px;
 }
 
 .tooltip-row :first-child {
@@ -52,13 +52,13 @@ md-toolbar .md-button {
 }
 
 .control {
-    width: 450px;
+    width: 350px;
     background: white;
     box-shadow: 0 1px 3px 0 rgba(0,0,0,.2),
         0 1px 1px 0 rgba(0,0,0,.14),
         0 2px 1px -1px rgba(0,0,0,.12);
     padding: 15px;
-    max-height: 600px;
+    max-height: 700px;
     transition: max-height 0.4s ease-in-out;
     overflow-y: hidden;
 }
@@ -104,4 +104,23 @@ md-toolbar .md-button {
 
 .info-field :first-child {
     font-weight: bold;
+}
+
+md-sidenav {
+    z-index: 1005;
+}
+
+.leaflet-control-zoom {
+    border: none !important;
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,.2),
+        0 1px 1px 0 rgba(0,0,0,.14),
+        0 2px 1px -1px rgba(0,0,0,.12)  !important;;
+}
+
+.leaflet-bar a:first-child {
+    border-radius: 0 !important;
+}
+
+.leaflet-bar a:last-child {
+    border-radius: 0 !important;
 }

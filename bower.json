@@ -11,6 +11,7 @@
     "font-awesome": "^4.7.0",
     "leaflet.markercluster": "Leaflet.markercluster#^1.0.3",
     "Leaflet.extra-markers": "^1.0.6",
-    "lf-ng-md-file-input": "^1.5.1"
+    "lf-ng-md-file-input": "^1.5.1",
+    "angular-local-storage": "^0.5.2"
   }
 }

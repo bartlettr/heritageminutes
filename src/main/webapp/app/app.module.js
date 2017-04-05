@@ -7,6 +7,7 @@
         'ngMaterial',
         'ui.router',
         'md.data.table',
-        'lfNgMdFileInput'
+        'lfNgMdFileInput',
+        'LocalStorageModule'
     ]);
 })();

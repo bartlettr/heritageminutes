@@ -5,9 +5,12 @@
         .module('HmgtApp')
         .controller('NavbarController', NavbarController);
 
-    NavbarController.$inject = [];
+    NavbarController.$inject = ['localStorageService'];
 
-    function NavbarController() {
-
+    function NavbarController(localStorageService) {
+        var vm = this;
+        vm.showMessage = function() {
+            localStorageService.set('messageHidden', false);
+        }
     }
 })();

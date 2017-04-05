@@ -22,9 +22,13 @@
     }
 
     materialConfig.$inject = ['$mdThemingProvider'];
-
     function materialConfig($mdThemingProvider) {
         $mdThemingProvider.theme('default')
           .primaryPalette('blue-grey');
     }
+
+    angular.module('HmgtApp').config(function (localStorageServiceProvider) {
+      localStorageServiceProvider
+        .setPrefix('hmgtApp');
+    });
 })();

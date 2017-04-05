@@ -5,19 +5,19 @@
         .module('HmgtApp')
         .controller('MapController', MapController);
 
-    MapController.$inject = ['$scope', '$compile', '$http'];
+    MapController.$inject = ['$scope', '$compile', '$http', '$mdSidenav', 'localStorageService'];
 
-    function MapController($scope, $compile, $http) {
+    function MapController($scope, $compile, $http, $mdSidenav, localStorageService) {
         var vm = this;
 
-        $scope.message = {};
-        $scope.message.hidden = false;
+        vm.message = {};
+        vm.message.hidden = false; //localStorageService.get('messageHidden');
 
-        $scope.info = {};
-        $scope.info.visible = false;
+        vm.info = {};
+        vm.info.visible = false;
 
-        vm.map =  L.map('map', {scrollWheelZoom: false, zoomControl: false}).setView([57, -93], 4);
-        L.control.zoom({position: 'bottomright'}).addTo(vm.map);
+        vm.map =  L.map('map', {zoomControl: false}).setView([57, -93], 4);
+        L.control.zoom({position: 'bottomleft'}).addTo(vm.map);
 
         L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, ' +
@@ -39,6 +39,13 @@
         };
         infoControl.addTo(vm.map);
 
+        var sideControl = new L.control({ position: 'topright' });
+        sideControl.onAdd = function (map) {
+            return createControl(sideControl,
+                'app/components/map/toggle.html');
+        };
+        sideControl.addTo(vm.map);
+
         vm.markers = L.markerClusterGroup({showCoverageOnHover: false, maxClusterRadius: 20});
         vm.map.addLayer(vm.markers);
 
@@ -53,8 +60,14 @@
         });
 
         function getMinute(id) {
-            return vm.minutes.find(function(element) {
-                return element.id === id;
+            return vm.minutes.find(function(minute) {
+                return minute.id === id;
+            });
+        }
+
+        function getLocationForMinute(minuteId) {
+            return vm.locations.find(function(location) {
+                return location.minuteId === minuteId;
             });
         }
 
@@ -71,12 +84,8 @@
             marker.on('click', function() {
                 var minute = this.minute;
                 var location = this.location;
-
                 $scope.$apply(function() {
-                    $scope.message.hidden = true;
-                    $scope.info.minute = minute;
-                    $scope.info.location = location;
-                    $scope.info.visible = true;
+                    showMinuteInfo(minute, location);
                 });
             });
 
@@ -88,9 +97,17 @@
             addTooltip(marker, location, minute);
         }
 
+        function showMinuteInfo(minute, location) {
+            vm.message.hidden = true;
+            vm.info.minute = minute;
+            vm.info.location = location;
+            vm.info.visible = true;
+        }
+
         function addTooltip(marker, location, minute) {
-            var tooltip = L.tooltip().setContent('<div class="tooltip"><div class="tooltip-row"><span>Minute</span><span>' + minute.name +
-                '</span></div><div class="tooltip-row"><span>Location</span><span>' + location.name + "</span></div></div>");
+            var tooltip = L.tooltip({offset: [1, -20], direction: 'top'})
+                .setContent('<div class="tooltip"><div class="tooltip-row"><span>Minute</span><span>' + minute.name +
+                    '</span></div><div class="tooltip-row"><span>Location</span><span>' + location.name + "</span></div></div>");
             marker.bindTooltip(tooltip);
         }
 
@@ -105,12 +122,23 @@
             return control._container;
         }
 
-        $scope.closeMessage = function() {
-            $scope.message.hidden = true;
+        vm.closeMessage = function() {
+            //localStorageService.set('messageHidden', true);
+            vm.message.hidden = true;
         }
 
-        $scope.closeInfo = function() {
-            $scope.info.visible = false;
+        vm.closeInfo = function() {
+            vm.info.visible = false;
+        }
+
+        vm.toggleSidenav = function() {
+            $mdSidenav('sidenav').toggle();
+        }
+
+        vm.showInfo = function(id) {
+            var minute = getMinute(id);
+            var location = getLocationForMinute(id);
+            showMinuteInfo(minute, location);
         }
     }
 })();

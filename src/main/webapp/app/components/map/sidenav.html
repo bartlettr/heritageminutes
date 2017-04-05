@@ -1,0 +1,15 @@
+<md-sidenav class="md-sidenav-right" md-component-id="sidenav" md-whiteframe="4">
+    <md-toolbar class="md-hue-2">
+        <h1 class="md-toolbar-tools">Minutes</h1>
+    </md-toolbar>
+    <md-content>
+        <md-list flex>
+            <md-list-item class="md-2-line" ng-repeat="minute in vm.minutes" ng-click="vm.showInfo(minute.id)">
+                <div class="md-list-item-text">
+                    <h3>#{{minute.number}} {{minute.name}}</h3>
+                    <p>{{minute.description}}</p>
+                </div>
+            </md-list-item>
+        </md-list>
+    </md-content>
+</md-sidenav>
