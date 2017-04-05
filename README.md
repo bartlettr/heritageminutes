@@ -6,10 +6,10 @@ Current issues / enhancements (in no order):
 2) Fancier cluster icons? Maybe green ones when there is a location (or locations) that have been visited.
 3) A search in the minutes table.
 4) A legend in the map.
-5) Mobile version.A
+5) Mobile version.
 6) Sources in info box.
 
 To save docker image and move to server:
 
-docker save -o <save image to path> <image name>
-docker load -i <path to image tar file>
+    docker save -o <save image to path> <image name>
+    docker load -i <path to image tar file>
