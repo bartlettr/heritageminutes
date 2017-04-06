@@ -8,6 +8,7 @@ Current issues / enhancements (in no order):
 4) A legend in the map.
 5) Mobile version.
 6) Sources in info box.
+7) Link to Twitter/Instagram for visited locations
 
 To save docker image and move to server:
 
